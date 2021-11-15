@@ -1,0 +1,39 @@
+{% extends "login-layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+
+    
+
+    <div class="col-md-5 myform form">
+      <div class="logo mb-3">
+        <div class="col-md-23">
+          <h4><b>Login</b></h4>
+        </div>
+      </div>
+      <form action="/login", method="post">
+        <div class="form-group">
+          <input type="text" class="form-control" name="username" id="username" placeholder="Username" autofocus required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+        </div class="col-md-12 text-center">
+        <button type="submit" class="btn btn-primary"><b>Log In</b></button>
+        <div class="col-md-12 ">
+            <div class="login-or">
+               <hr class="hr-or">
+               <span class="span-or">or</span>
+            </div>
+         </div>
+        <div class="form-group">
+          <p class="text-center">Don't have an account?
+          <br>
+          <a class="text-center" href="/register">Sign up here</a></p>
+        </div>
+      </form>
+    </div>
+
+{% endblock %}

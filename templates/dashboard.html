@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block main %}
+
+    <div>
+        <h3>Total time tracked today:</h3>
+        <p id='total_time' name='total_time'></p>
+        <hr>
+        <div>
+            {% for tag in tags %}
+                <span id='{{tag}}'>{{ tag }}:</span>
+                <span id='{{ tag ~ "_time" }}' name='{{ tag ~ "_time" }}'></span>
+                <br>
+            {% endfor %}
+        </div>
+        <p id="out"></p>
+    </div>
+
+
+    <script>
+    window.onload = function total_time() {
+
+        // Display total time
+        // Get total time in seconds
+        var time = '{{ total_time }}';
+
+        var hours = Math.floor(time / (60 * 60));
+        var minutes = Math.floor((time / 60) % 60);
+
+        document.getElementById("total_time").innerHTML = hours + " hours " + minutes + " minutes ";
+
+        var tag_time = JSON.parse('{{ tagtime_json|safe }}');
+        var tags = JSON.parse('{{ tags_json|safe }}');
+
+        for (var i = 0; i < tags.length; i++)
+        {
+            var time = tag_time[tags[i]];
+
+            var hours = Math.floor(time / (60 * 60));
+            var minutes = Math.floor((time / 60) % 60);
+
+            if (hours > 0){
+                document.getElementById(tags[i] + "_time").innerHTML = hours + " hours " + minutes + " minutes ";
+            }
+
+
+            else{
+                document.getElementById(tags[i] + "_time").innerHTML = minutes + " minutes ";
+            }
+
+        }
+
+
+    };
+
+
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    Timer
+{% endblock %}
+
+{% block main %}
+    <p id="timer" name="timer"></p>
+    <a id="redirect" name="redirect" href="/start" style="visibility: hidden">Back to previous page</a>
+
+    <script>
+    // Get time input from user and convert to seconds
+    const TIME = '{{ time }}' * 60;
+    let timePassed = 0;
+    let timeLeft = TIME;
+
+    var timeInterval = setInterval(() =>
+        {
+            // Change time by 1 second
+            timePassed += 1;
+            timeLeft = TIME - timePassed;
+
+            // Calculations for hours, minutes, and seconds
+            var hours = Math.floor(timeLeft / (60 * 60));
+            var minutes = Math.floor((timeLeft / 60) % 60);
+            var seconds = Math.floor(timeLeft % (60));
+
+            // Display the result
+            document.getElementById("timer").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+            // If the count down is finished
+            if (hours === 0 && minutes === 0 && seconds === 0) {
+                clearInterval(timeInterval);
+                document.getElementById("timer").innerHTML = "Session completed!";
+                document.getElementById("redirect").style.visibility = "visible";
+
+                // Parse data as JSON string to route to update databse
+                $.getJSON("/update_record", {
+                    session: TIME,
+                    tag: '{{ tag }}'
+                });
+            }
+        }, 1000);
+    </script>
+
+{% endblock %}
+
+

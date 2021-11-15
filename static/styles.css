@@ -1,0 +1,79 @@
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* center contents */
+    text-align: center;
+}
+
+.btn-primary
+{
+ background-color: #185939;
+ border: none;
+ border-radius: 50px;
+}
+
+
+.myform
+{
+position: relative;
+top: 50%;
+display: -ms-flexbox;
+display: flex;
+padding: 1rem;
+-ms-flex-direction: column;
+flex-direction: column;
+
+pointer-events: auto;
+background-color: #55f2a4;
+background-clip: padding-box;
+border-radius: 1.1rem;
+outline: 0;
+max-width: 500px;
+}
+
+.login-or
+{
+ position: relative;
+ color: #71857b;
+ margin-top: 10px;
+ margin-bottom: 10px;
+ padding-top: 10px;
+ padding-bottom: 10px;
+}
+
+.span-or
+{
+ display: block;
+ position: absolute;
+ left: 50%;
+ top: -2px;
+ margin-left: -25px;
+ background-color: #55f2a4;
+ width: 50px;
+ text-align: center;
+}
+
+.hr-or
+{
+ height: 1px;
+ margin-top: 0px !important;
+ margin-bottom: 0px !important;
+}
+
+h1,h2,h3
+{
+ font-family: 'Raleway';
+}
+
+nav
+{
+  background-color: #55f2a4;
+}

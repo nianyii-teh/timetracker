@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Manage Tags
+{% endblock %}
+
+{% block main %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Tag</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+                <tr>
+                    <td>{{ tag["name"] }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button type="button" data-toggle="modal" data-tag='{{ tag["name"] }}' class="open-EditTagDialog btn btn-secondary" data-target="#EditTagDialog">Edit</button>
+                          <button type="button" data-toggle="modal" data-tag='{{ tag["name"] }}' class="open-DeleteTagDialog btn btn-secondary" data-target="#DeleteTagDialog">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="button" data-toggle="modal" class="open-AddTagDialog btn btn-secondary" data-target='#AddTagDialog'>Add Tag</button>
+    <p id="out"></p>
+
+    <!- Modals -->
+
+    <!- Edit Modal -->
+    <div class="modal fade" id="EditTagDialog" tabindex="-1" role="dialog" aria-labelledby="EditTagDialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editTagDialogLabel">Edit Tag</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/edit" method="post">
+              <div class="form-group row" style="justify-content: center">
+                <label for="old_name" class="col-sm-4 col-form-label">Current tag name: </label>
+                <div>
+                  <input type="text" readonly class="col-sm-10 form-control-plaintext" name="old_name" id="old_name" value="">
+                </div>
+              </div>
+              <div class="form-group" style="justify-content: center">
+                <label for="edit_name" class="col-sm-4 col-form-label">New tag name: </label>
+                <input type="text" class="form-control" name="edit_name" id="edit_name" required>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-secondary">Save changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!- Delete Modal ->
+    <div class="modal fade" id="DeleteTagDialog" tabindex="-1" role="dialog" aria-labelledby="DeleteTagDialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="DeleteTagDialogLabel">Delete Tag</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/deletetag" method="post">
+              <p><b>Deleting this tag will remove all recorded sessions under it.</b></p>
+              <p name="confirm_delete" name="confirm_delete" id="confirm_delete">Delete this tag?</p>
+              <input type="text" readonly class="form-control-plaintext" name="tag" id="tag" style="text-align: center" value="">
+              <br>
+              <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-secondary">Yes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!- Add Modal -->
+    <div class="modal fade" id="AddTagDialog" tabindex="-1" role="dialog" aria-labelledby="AddTagDialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="AddTagDialogLabel">Add Tag</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/add" method="post">
+              <label for="tag" class="col-form-label">Tag Name:</label>
+              <input type="text" autofocus class="form-control" name="tag" id="tag" required/>
+              <br><br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-secondary">Add</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+<script>
+  // Customize each edit modal
+  $(document).on("click", ".open-EditTagDialog", function() {
+    var tag = $(this).data('tag');
+    $(".modal-body #old_name").val( tag );
+  });
+
+  // Customize each delete modal
+  $(document).on("click", ".open-DeleteTagDialog", function() {
+    var tag = $(this).data('tag');
+    $(".modal-body #tag").val(tag);
+  });
+
+</script>
+
+{% endblock %}
+
+

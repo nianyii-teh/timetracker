@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Delete Account
+{% endblock %}
+
+{% block main %}
+    <div>
+        <h6>Are you sure you want to delete '{{ "'" ~ username ~ "'" }}'?</h6>
+        <p>Deleting your account permanently removes all data connected to it.</p>
+    </div>
+    <br>
+    <div>
+        <form action="/delete" method="post">
+            <div class="form-group">
+                <label class="col-md-2" for="password">Enter password to confirm: </label>
+                <input class="form-control" type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary"><b>Delete Account</b></button>
+        </form>
+    </div>
+
+{% endblock %}
+
+
